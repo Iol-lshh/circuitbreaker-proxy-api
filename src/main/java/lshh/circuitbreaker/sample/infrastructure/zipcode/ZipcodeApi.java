@@ -14,7 +14,7 @@ public class ZipcodeApi implements Api<Zipcode> {
 
     @Override
     public boolean isAvailable() {
-        return false;
+        return true;
     }
 
     @Override
@@ -24,6 +24,6 @@ public class ZipcodeApi implements Api<Zipcode> {
 
     @Override
     public String getId() {
-        return "";
+        return this.id;
     }
 }

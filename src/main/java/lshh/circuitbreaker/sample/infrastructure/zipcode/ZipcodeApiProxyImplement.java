@@ -4,6 +4,7 @@ import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lshh.circuitbreaker.core.exception.ApiConnectException;
 import lshh.circuitbreaker.sample.domain.zipcode.Zipcode;
 import lshh.circuitbreaker.sample.domain.zipcode.ZipcodeApiProxy;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,7 +14,7 @@ public class ZipcodeApiProxyImplement implements ZipcodeApiProxy {
     private final ZipcodeApiManager apiManager;
     private ZipcodeApi api;
 
-    public ZipcodeApiProxyImplement(ZipcodeApiManager apiManager) {
+    public ZipcodeApiProxyImplement(@Autowired ZipcodeApiManager apiManager) {
         this.apiManager = apiManager;
         initApi();
     }

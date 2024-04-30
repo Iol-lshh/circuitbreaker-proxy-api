@@ -1,12 +1,13 @@
 package lshh.circuitbreaker.sample.domain.zipcode;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class ZipcodeService {
-    private final ZipcodeApiProxy api;
+    @Autowired
+    private ZipcodeApiProxy api;
 
     public Zipcode findZipcodeByAddress(String address) {
         return api.findZipcodeByAddress(address);
