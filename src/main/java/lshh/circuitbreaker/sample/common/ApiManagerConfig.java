@@ -12,7 +12,7 @@ import java.util.List;
 @Configuration
 public class ApiManagerConfig {
     @Bean
-    ApiManager<Zipcode> apiManager() {
+    ApiManager<Zipcode> zipcodeApiManager() {
         return new ApiManagerImplement<>(List.of(
                 new ZipcodeApi("naver", ""),
                 new ZipcodeApi("kakao", "")

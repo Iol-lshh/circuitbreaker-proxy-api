@@ -1,20 +1,23 @@
 package lshh.circuitbreaker.sample.infrastructure.zipcode;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import lshh.circuitbreaker.core.ApiManager;
 import lshh.circuitbreaker.core.exception.ApiConnectException;
 import lshh.circuitbreaker.sample.domain.zipcode.Zipcode;
 import lshh.circuitbreaker.sample.domain.zipcode.ZipcodeApiProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 @CircuitBreaker(name = "zipcode", fallbackMethod = "fallback")
 public class ZipcodeApiProxyImplement implements ZipcodeApiProxy {
 
-    private final ZipcodeApiManager apiManager;
+    private final ApiManager<Zipcode> apiManager;
     private ZipcodeApi api;
 
-    public ZipcodeApiProxyImplement(@Autowired ZipcodeApiManager apiManager) {
+    public ZipcodeApiProxyImplement(@Autowired ApiManager<Zipcode> apiManager) {
         this.apiManager = apiManager;
         initApi();
     }
@@ -29,6 +32,8 @@ public class ZipcodeApiProxyImplement implements ZipcodeApiProxy {
     }
 
     public void initApi(){
-        this.api = apiManager.getApi();
+        this.api = apiManager.findAvailableByOrder()
+                .flatMap(api -> Optional.of((ZipcodeApi) api))
+                .orElseThrow(ApiConnectException::new);
     }
 }
