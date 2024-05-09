@@ -1,9 +1,9 @@
 package lshh.circuitbreaker.sample.common;
 
-import lshh.circuitbreaker.core.ApiManager;
-import lshh.circuitbreaker.core.ApiManagerImplement;
+import lshh.circuitbreaker.api.ApiManager;
+import lshh.circuitbreaker.api.SimpleApiManager;
 import lshh.circuitbreaker.sample.domain.zipcode.Zipcode;
-import lshh.circuitbreaker.sample.infrastructure.zipcode.ZipcodeApi;
+import lshh.circuitbreaker.sample.infrastructure.zipcode.ZipcodeApiClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,9 +13,9 @@ import java.util.List;
 public class ApiManagerConfig {
     @Bean
     ApiManager<Zipcode> zipcodeApiManager() {
-        return new ApiManagerImplement<>(List.of(
-                new ZipcodeApi("naver", ""),
-                new ZipcodeApi("kakao", "")
+        return new SimpleApiManager<>(List.of(
+                new ZipcodeApiClient("naver", ""),
+                new ZipcodeApiClient("kakao", "")
         ));
     }
 }

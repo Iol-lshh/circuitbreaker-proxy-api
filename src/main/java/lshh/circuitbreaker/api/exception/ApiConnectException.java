@@ -1,4 +1,4 @@
-package lshh.circuitbreaker.core.exception;
+package lshh.circuitbreaker.api.exception;
 
 public class ApiConnectException extends RuntimeException {
     public ApiConnectException(String message) {
